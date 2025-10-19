@@ -1,8 +1,8 @@
 package com.adambougher;
 
-import javafx.scene.effect.Light.Point;
+import java.util.Observable;
 
-public class Ship {
+public class Ship extends Observable {
     public int x;
     public int y;
 
@@ -19,21 +19,24 @@ public class Ship {
         return y;
     }
 
-    public void goEast(){
+    public void goEast(gridState goToState){
+        if (goToState != gridState.ISLAND && goToState != null)
         x += 1;
     }
 
-    public void goWest(){
+    public void goWest(gridState goToState ){
+        if (goToState != gridState.ISLAND && goToState != null)
         x -= 1;
     }
 
-    public void goNorth(){
+    public void goNorth(gridState goToState ){
+        if (goToState != gridState.ISLAND && goToState != null)
         y -= 1;
     }
 
-    public void goSouth(){
+    public void goSouth(gridState goToState){
+        if (goToState != gridState.ISLAND && goToState != null)
         y += 1;
-    }
-    
+    } 
 
 }
