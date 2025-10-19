@@ -47,7 +47,7 @@ public class OceanMap {
                 x = (int)(Math.random() * 10);
                 y = (int)(Math.random() * 10);
             }
-            pirates[i] = new pirateShip(x, y);
+            pirates[i] = new pirateShip(x, y, i+1);
             oceanGrid.placeObject(x, y, gridState.PIRATE);
         }
     }   
