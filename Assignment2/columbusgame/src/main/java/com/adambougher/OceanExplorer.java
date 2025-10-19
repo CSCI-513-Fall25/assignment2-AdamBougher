@@ -17,13 +17,17 @@ public class OceanExplorer extends  Application {
 
     final int dimension = 10; // We are creating 10X10 maps
     final int scale = 50; // Scale everything by 50. You can experiment here.
-    OceanMap oceanMap = new OceanMap();
-    boolean[][] oceanGrid = oceanMap.getMap();
+    OceanMap oceanMap = new OceanMap(dimension, 10, 2);
+    gameGrid oceanGrid = oceanMap.getMap();
 
-    Image shipImage = new Image("ship.png",50,50,true,true);
+    Image shipImage = new Image("ship.png",scale,scale,true,true);
+    Image islandImage = new Image("island.jpg",scale,scale,true,true);
+    Image pirateImage = new Image("pirateShip.png",scale,scale,true,true);
     // Now instantiate and load the image View. Actually this probably needs to be
     // a class level variable so you would already have defined ImageView shipImageview
     ImageView shipImageView = new ImageView(shipImage);
+    ImageView islandImageView = new ImageView(islandImage);
+    ImageView pirateImageView = new ImageView(pirateImage);
 
     @Override
     public void start(Stage oceanStage) throws Exception {
@@ -35,17 +39,36 @@ public class OceanExplorer extends  Application {
 
         startSailing(scene, oceanMap.ship);
 
-        for(int x = 0; x < 50; x++){
-            for(int y = 0; y < 50; y++){
-                Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
-                rect.setStroke(Color.BLACK); // We want the black outline
-                rect.setFill(Color.PALETURQUOISE); // I like this color better than BLUE
-                root.getChildren().add(rect); // Add to the node tree in the pane
+
+        for(int x = 0; x < dimension; x++){
+            for(int y = 0; y < dimension; y++){
+                Rectangle rect;
+                switch(oceanGrid.grid[x][y]){
+                    case WATER:
+                        rect = new Rectangle(x*scale,y*scale,scale,scale);
+                        rect.setStroke(Color.BLACK); // We want the black outline
+                        rect.setFill(Color.PALETURQUOISE); // I like this color better than BLUE
+                        root.getChildren().add(rect); // Add to the node tree in the pane
+                        break;
+                    case ISLAND:
+                        islandImageView = new ImageView(islandImage);
+                        islandImageView.setX(x*scale+1);
+                        islandImageView.setY(y*scale+1);
+                        root.getChildren().add(islandImageView);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
+        oceanGrid.removeObject(oceanMap.ship.getX(), oceanMap.ship.getY());
+
         shipImageView.setX(oceanMap.ship.getX() * scale);
         shipImageView.setY(oceanMap.ship.getY() * scale);
+
+        oceanGrid.placeObject(oceanMap.ship.getX(), oceanMap.ship.getY(), gridState.SHIP);
+
         root.getChildren().add(shipImageView);
 
     }
@@ -56,20 +79,19 @@ public class OceanExplorer extends  Application {
 
     private void startSailing(Scene scene, Ship ship) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
             public void handle(KeyEvent ke) {
                 switch (ke.getCode()) {
                     case RIGHT:
-                        ship.goEast();
+                        ship.goEast(oceanGrid.getGridState(ship.getX() + 1, ship.getY()));
                         break;
                     case LEFT:
-                        ship.goWest();
+                        ship.goWest(oceanGrid.getGridState(ship.getX() - 1, ship.getY()));
                         break;
                     case UP:
-                        ship.goNorth();
+                        ship.goNorth(oceanGrid.getGridState(ship.getX(), ship.getY() - 1));
                         break;
                     case DOWN:
-                        ship.goSouth();
+                        ship.goSouth(oceanGrid.getGridState(ship.getX(), ship.getY() + 1));
                         break;
                     default:
                         break;
