@@ -2,16 +2,22 @@ package com.adambougher;
 
 public class OceanMap {
     gameGrid oceanGrid;
-    int scalingFactor = 50;
+    final int scalingFactor = 50;
     public Ship ship = new Ship(5,5);
     public pirateShip [] pirates;
 
     public OceanMap(int size, int numIslands, int numPirates) {
         oceanGrid = new gameGrid(size);
+        oceanGrid.placeObject(ship.getX(), ship.getY(), gridState.SHIP);
+
+        placeIslands(numIslands, gridState.ISLAND);
+
         pirates = new pirateShip[numPirates];
+        placePirates(numPirates);
         
-        placeObjects(numIslands, gridState.ISLAND);
-        placeObjects(numPirates, gridState.PIRATE);
+        for (pirateShip pirateShip : pirates) {
+            ship.addObserver(pirateShip);
+        }
     }
 
     // Return generated map
@@ -19,19 +25,32 @@ public class OceanMap {
         return oceanGrid;
     }
 
-    public void placeObjects(int amt, gridState state){
+    public void placeIslands(int amt, gridState state){
         int x = (int)(Math.random() * 10);
         int y = (int)(Math.random() * 10);
         
         for (int i = 0; i < amt; i++) {
-            oceanGrid.placeObject(x, y, state);
-
-            while (oceanGrid.grid[x][y] == state) {
+            while (oceanGrid.grid[x][y] != gridState.WATER) {
                 x = (int)(Math.random() * 10);
                 y = (int)(Math.random() * 10);
             }
+            oceanGrid.placeObject(x, y, state);
         }
     }
+
+    private void placePirates(int amt){
+        int x = (int)(Math.random() * 10);
+        int y = (int)(Math.random() * 10);
+        
+        for (int i = 0; i < amt; i++) {
+            while (oceanGrid.grid[x][y] != gridState.WATER) {
+                x = (int)(Math.random() * 10);
+                y = (int)(Math.random() * 10);
+            }
+            pirates[i] = new pirateShip(x, y);
+            oceanGrid.placeObject(x, y, gridState.PIRATE);
+        }
+    }   
 
 
 }
