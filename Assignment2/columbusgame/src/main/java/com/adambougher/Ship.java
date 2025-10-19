@@ -20,22 +20,22 @@ public class Ship extends Observable {
     }
 
     public void goEast(gridState goToState){
-        if (goToState != gridState.ISLAND && goToState != null)
+        if (goToState == gridState.WATER)
         x += 1;
     }
 
     public void goWest(gridState goToState ){
-        if (goToState != gridState.ISLAND && goToState != null)
+        if (goToState == gridState.WATER )
         x -= 1;
     }
 
     public void goNorth(gridState goToState ){
-        if (goToState != gridState.ISLAND && goToState != null)
+        if (goToState == gridState.WATER)
         y -= 1;
     }
 
     public void goSouth(gridState goToState){
-        if (goToState != gridState.ISLAND && goToState != null)
+        if (goToState == gridState.WATER)
         y += 1;
     } 
 
