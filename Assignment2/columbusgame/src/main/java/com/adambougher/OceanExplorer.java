@@ -38,9 +38,6 @@ public class OceanExplorer extends  Application {
 
         startSailing(scene, oceanMap.ship);
 
-
-        int id = 0;
-
         for(int x = 0; x < dimension; x++){
             for(int y = 0; y < dimension; y++){
                 Rectangle rect;
@@ -74,8 +71,6 @@ public class OceanExplorer extends  Application {
 
         for (pirateShip pirate : oceanMap.pirates) {
             oceanGrid.removeObject(pirate.getX(), pirate.getY());
-            // Update the position of the pirate ImageView
-            // You'll need to keep track of ImageView objects for each pirate
         }
 
         oceanGrid.removeObject(oceanMap.ship.getX(), oceanMap.ship.getY());
@@ -127,7 +122,7 @@ public class OceanExplorer extends  Application {
 
             pirateImageViews[i].setX(pirate.getX() * scale);
             pirateImageViews[i].setY(pirate.getY() * scale);
-            
+
             oceanGrid.placeObject(pirate.getX(), pirate.getY(), gridState.PIRATE);
         }
     }
