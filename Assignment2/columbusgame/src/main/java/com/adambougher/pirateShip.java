@@ -3,13 +3,15 @@ package com.adambougher;
 import java.util.Observable;
 import java.util.Observer;
 
-@SuppressWarnings("deprecation")
-public class pirateShip extends Ship  implements Observer {
+public class pirateShip implements Observer, moveable {
 
     public int ID;
+    public int x;
+    public int y;
 
     public pirateShip(int x, int y) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -50,5 +52,34 @@ public class pirateShip extends Ship  implements Observer {
         }
     }
 
-    
+    @Override
+    public void goNorth(gridState goToState) {
+        if (goToState == gridState.WATER)
+        y -= 1;
+    }
+    @Override
+    public void goSouth(gridState goToState) {
+        if (goToState == gridState.WATER)
+        y += 1;
+    }
+    @Override
+    public void goEast(gridState goToState) {
+        if (goToState == gridState.WATER)
+        x += 1;
+    }
+    @Override
+    public void goWest(gridState goToState) {
+        if (goToState == gridState.WATER)
+        x -= 1;
+    }
+
+    @Override
+    public int getX() {
+        return this.x;
+    }
+
+    @Override
+    public int getY() {
+        return this.y;
+    }
 }

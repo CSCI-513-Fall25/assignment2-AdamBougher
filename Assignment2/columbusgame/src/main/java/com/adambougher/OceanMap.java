@@ -4,7 +4,7 @@ public class OceanMap {
     public gameGrid oceanGrid;
     final int scalingFactor = 50;
     public Ship ship = new Ship(5,5);
-    public pirateShip [] pirates;
+    public pirateShip[] pirates;
 
     public OceanMap(int size, int numIslands, int numPirates) {
         oceanGrid = new gameGrid(size);
