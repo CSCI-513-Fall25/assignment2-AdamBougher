@@ -4,9 +4,8 @@ public class OceanMap {
     public gameGrid oceanGrid;
     final int scalingFactor = 50;
     public Ship ship = new Ship(5,5);
-    public pirateShip [] pirates;
+    public pirateShip[] pirates;
 
-    /// Constructor to generate map with given size, number of islands, and number of pirates
     public OceanMap(int size, int numIslands, int numPirates) {
         oceanGrid = new gameGrid(size);
         oceanGrid.placeObject(ship.getX(), ship.getY(), gridState.SHIP);
@@ -17,13 +16,11 @@ public class OceanMap {
         
     }
 
-
     // Return generated map
     public gameGrid getMap(){
         return oceanGrid;
     }
 
-    /// Place islands randomly on the map
     public void placeIslands(int amt){
         int x  = (int)(Math.random() * oceanGrid.gridSize);
         int y = (int)(Math.random() * oceanGrid.gridSize);
@@ -37,7 +34,6 @@ public class OceanMap {
         }
     }
 
-    /// Place pirates randomly on the map
     private pirateShip [] placePirates(int amt){
         int x  = (int)(Math.random() * oceanGrid.gridSize);
         int y = (int)(Math.random() * oceanGrid.gridSize);
@@ -56,7 +52,6 @@ public class OceanMap {
         return p;
     }   
 
-    /// Get pirate ship at given coordinates
     public pirateShip getShip(int  x, int y){
         for (pirateShip pirateShip : pirates) {
             if (pirateShip.x == x && pirateShip.y == y) {
