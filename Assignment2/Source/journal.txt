@@ -1,3 +1,0 @@
-the Driver Ocean Explorer creates a OceanMap Object which creates a game board of type gameGrid, it uses gridStates to keep track of the game cell gridStates
-it then crates the grid in this order
-all tiles become water, then the player ship is assed, islands are then added and finaly the pirates are added.

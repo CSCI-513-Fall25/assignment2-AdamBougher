@@ -1,0 +1,4 @@
+The Driver (OceanExplorer) creates an OceanMap which builds a game board (gameGrid) and uses gridState to track each cell. 
+I set up the board in this order: start with all WATER, place the player ship, then add islands, and finally add pirates. 
+I use the Observer pattern here: the Ship is the subject and each pirateShip is an observer—when the ship moves, it notifies the pirates and they react on their own.
+This keeps ship input separate from pirate behavior and the UI, and makes it easy to change how many pirates there are or how they move.
